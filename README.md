@@ -1,2 +1,799 @@
-# resume
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>孙莹 | 投资者关系管理</title>
+    <style>
+        /* 全局样式：完全匹配图片视觉效果 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-primary: #f8f5f0; /* 图片中的米白色背景 */
+            --bg-secondary: #ffffff; /* 卡片白色背景 */
+            --text-primary: #1a1a1a; /* 主要文字黑色 */
+            --text-secondary: #666666; /* 次要文字灰色 */
+            --text-accent: #2a3b69; /* 藏蓝色强调色 */
+            --border: #e0e0e0; /* 边框浅灰色 */
+            --shadow: 0 2px 8px rgba(0,0,0,0.05); /* 轻微阴影 */
+            --gradient-accent: linear-gradient(120deg, #2a3b69, #4a6fa5);
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+            padding-top: 60px; /* 为固定导航栏预留空间 */
+        }
+
+        /* 导航栏：修改为居中对齐 + 手机端适配 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-secondary);
+            padding: 0.8rem 4%; /* 手机端减小左右内边距 */
+            display: flex;
+            justify-content: center; /* 改为居中对齐 */
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto; /* 导航栏横向滚动 */
+            -webkit-overflow-scrolling: touch; /* 移动端顺滑滚动 */
+            scrollbar-width: none; /* 隐藏滚动条 */
+        }
+        nav::-webkit-scrollbar {
+            display: none; /* 隐藏移动端滚动条 */
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem; /* 手机端减小导航项间距 */
+            min-width: fit-content; /* 确保导航项不挤压 */
+        }
+        .nav-btn {
+            padding: 0.3rem 0;
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+            white-space: nowrap; /* 导航文字不换行 */
+        }
+        .nav-btn:hover {
+            color: var(--text-accent);
+        }
+
+        /* 首屏区域：完全匹配图片布局 + 手机端适配 */
+        .hero {
+            padding: 2rem 4% 3rem; /* 手机端减小左右内边距 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .hero-photo {
+            margin-bottom: 1rem;
+        }
+        .photo-container {
+            width: 150px; /* 手机端缩小照片尺寸 */
+            height: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--bg-secondary);
+            cursor: pointer;
+            margin: 0 auto;
+        }
+        .hero-photo img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        #photo-input {
+            display: none;
+        }
+        .job-intention {
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            color: var(--text-accent);
+            font-weight: 600;
+            margin: 1rem 0;
+            padding: 0.3rem 1rem;
+            border: 1px solid transparent;
+            transition: border 0.2s ease;
+        }
+        .job-intention:hover {
+            border: 1px solid var(--text-accent);
+            border-radius: 4px;
+        }
+        .hero-text h1 {
+            font-size: 2rem; /* 手机端缩小标题字体 */
+            font-weight: 700;
+            color: var(--text-accent);
+            margin-bottom: 0.5rem;
+        }
+        .hero-text h1 span {
+            font-size: 1rem; /* 手机端缩小副标题字体 */
+            color: var(--text-accent);
+            font-weight: 500;
+            display: block;
+            margin-top: 0.8rem;
+        }
+        .hero-text p {
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            color: var(--text-primary);
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 1rem auto 0;
+            padding: 1rem 1rem; /* 手机端减小内边距 */
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--text-accent);
+            box-shadow: var(--shadow);
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        /* 通用板块样式：匹配图片 + 手机端适配 */
+        section {
+            padding: 1rem 4% 2rem; /* 手机端减小左右内边距 */
+            margin-bottom: 1.5rem;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.6rem; /* 手机端缩小板块标题 */
+            font-weight: 700;
+            color: var(--text-accent);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px; /* 手机端缩小下划线 */
+            height: 3px;
+            background: var(--text-accent);
+            border-radius: 3px;
+        }
+        .section-subtitle {
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            color: var(--text-secondary);
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* 教育背景：匹配图片单行布局 + 手机端适配 */
+        .edu-grid {
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            padding: 1.2rem 1rem; /* 手机端减小内边距 */
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .edu-item {
+            margin-bottom: 0.8rem; /* 手机端减小间距 */
+        }
+        .edu-item:last-child {
+            margin-bottom: 0;
+        }
+        .edu-item h3 {
+            font-size: 1rem; /* 手机端缩小字体 */
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 0.3rem;
+        }
+        .edu-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem; /* 手机端缩小字体 */
+            line-height: 1.5;
+        }
+
+        /* 工作经历：减小段落间距 + 滚动 + 手机端适配 */
+        .exp-card {
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            padding: 1.2rem 1rem; /* 手机端减小内边距 */
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .exp-header h3 {
+            font-size: 1.1rem; /* 手机端缩小字体 */
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .exp-header p {
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .exp-content .main-projects {
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+        .exp-scroll-container {
+            max-height: 200px; /* 手机端调整滚动高度 */
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--text-accent) #f0f0f0;
+        }
+        .exp-scroll-container::-webkit-scrollbar {
+            width: 4px; /* 手机端缩小滚动条 */
+        }
+        .exp-scroll-container::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+        .exp-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--text-accent);
+            border-radius: 3px;
+        }
+        .exp-content ul {
+            list-style: none;
+            padding-left: 1.2rem; /* 手机端减小左侧内边距 */
+        }
+        .exp-content li {
+            position: relative;
+            margin-bottom: 0.5rem; /* 减小工作经历段落间距 */
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            line-height: 1.6;
+        }
+        .exp-content li::before {
+            content: '●';
+            position: absolute;
+            left: -1rem; /* 手机端调整圆点位置 */
+            top: 0;
+            color: var(--text-accent);
+            font-size: 0.7rem; /* 手机端缩小圆点 */
+        }
+
+        /* 项目经历：减小段落间距 + 滚动 + 手机端适配 */
+        .projects-container {
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* 手机端减小项目卡片间距 */
+        }
+        .project-card {
+            background: var(--bg-secondary);
+            padding: 1.2rem 1rem; /* 手机端减小内边距 */
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .project-title-container {
+            display: flex;
+            flex-direction: column; /* 手机端标题和元信息垂直排列 */
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            gap: 0.3rem; /* 垂直排列的间距 */
+        }
+        .project-card h3 {
+            font-size: 1rem; /* 手机端缩小字体 */
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+        .project-card .project-meta {
+            font-size: 0.85rem; /* 手机端缩小字体 */
+            color: var(--text-secondary);
+        }
+        .project-scroll-container {
+            max-height: 220px; /* 手机端调整滚动高度 */
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--text-accent) #f0f0f0;
+        }
+        .project-scroll-container::-webkit-scrollbar {
+            width: 4px; /* 手机端缩小滚动条 */
+        }
+        .project-scroll-container::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+        .project-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--text-accent);
+            border-radius: 3px;
+        }
+        .project-card ul {
+            list-style: none;
+            padding-left: 1.2rem; /* 手机端减小左侧内边距 */
+        }
+        .project-card li {
+            position: relative;
+            margin-bottom: 0.6rem; /* 减小项目经历段落间距 */
+            font-size: 0.9rem; /* 手机端缩小字体 */
+            line-height: 1.6;
+        }
+        .project-card li::before {
+            content: '●';
+            position: absolute;
+            left: -1rem; /* 手机端调整圆点位置 */
+            top: 0;
+            color: var(--text-accent);
+            font-size: 0.7rem; /* 手机端缩小圆点 */
+        }
+
+        /* 证书技能：2*2布局 → 手机端1列布局 + 适配 */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 手机端改为单列 */
+            gap: 1rem; /* 手机端减小卡片间距 */
+            max-width: 100%; /* 手机端宽度100% */
+            margin: 0 auto;
+        }
+        .cert-card {
+            background: var(--bg-secondary);
+            padding: 1.2rem 1rem; /* 手机端减小内边距 */
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .cert-card h3 {
+            font-size: 1rem; /* 手机端缩小字体 */
+            font-weight: 600;
+            color: var(--text-accent);
+            margin-bottom: 0.5rem;
+        }
+        .cert-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem; /* 手机端缩小字体 */
+        }
+
+        /* 联系板块：匹配图片深蓝色背景 + 手机端适配 */
+        .contact {
+            background: var(--text-accent);
+            color: #ffffff;
+            padding: 2rem 4%; /* 手机端减小左右内边距 */
+            border-radius: 8px 8px 0 0;
+            margin-top: 1rem;
+        }
+        .contact .section-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+        }
+        .contact .section-title::after {
+            background: #ffffff;
+            width: 50px;
+        }
+        .contact .section-subtitle {
+            color: #f0f0f0;
+            font-size: 0.9rem;
+        }
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1.5rem;
+            font-size: 1rem; /* 手机端缩小字体 */
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* 可编辑元素样式 + 手机端适配 */
+        [contenteditable="true"] {
+            outline: none;
+            cursor: text;
+            padding: 0.2rem;
+            border: 1px solid transparent;
+            transition: border 0.2s ease;
+        }
+        [contenteditable="true"]:hover {
+            border: 1px solid var(--text-accent);
+            border-radius: 4px;
+            background-color: rgba(42, 59, 105, 0.03);
+        }
+
+        /* 响应式适配（补充） */
+        @media (min-width: 768px) {
+            /* 平板及以上恢复原有样式 */
+            nav {
+                padding: 0.8rem 8%;
+            }
+            .nav-links {
+                gap: 2rem;
+            }
+            .hero {
+                padding: 2rem 8% 3rem;
+            }
+            .photo-container {
+                width: 180px;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .hero-text h1 span {
+                font-size: 1.2rem;
+            }
+            .hero-text p {
+                font-size: 1rem;
+                max-width: 800px;
+                padding: 1rem 1.5rem;
+            }
+            section {
+                padding: 1rem 8% 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .section-title::after {
+                width: 60px;
+            }
+            .section-subtitle {
+                font-size: 1rem;
+                max-width: 800px;
+            }
+            .edu-grid {
+                max-width: 800px;
+                padding: 1.5rem 2rem;
+            }
+            .edu-item h3 {
+                font-size: 1.2rem;
+            }
+            .edu-item p {
+                font-size: 0.95rem;
+            }
+            .exp-card {
+                max-width: 1000px;
+                padding: 1.5rem 2rem;
+            }
+            .exp-header h3 {
+                font-size: 1.3rem;
+            }
+            .exp-header p {
+                font-size: 1rem;
+            }
+            .exp-content .main-projects {
+                font-size: 1rem;
+            }
+            .exp-scroll-container {
+                max-height: 220px;
+            }
+            .exp-content ul {
+                padding-left: 1.5rem;
+            }
+            .exp-content li {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            .exp-content li::before {
+                left: -1.2rem;
+                font-size: 0.8rem;
+            }
+            .projects-container {
+                max-width: 1000px;
+                gap: 1.5rem;
+            }
+            .project-card {
+                padding: 1.5rem 2rem;
+            }
+            .project-title-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+            .project-card h3 {
+                font-size: 1.2rem;
+            }
+            .project-card .project-meta {
+                font-size: 0.9rem;
+            }
+            .project-scroll-container {
+                max-height: 280px;
+            }
+            .project-card ul {
+                padding-left: 1.5rem;
+            }
+            .project-card li {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            .project-card li::before {
+                left: -1.2rem;
+                font-size: 0.8rem;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                max-width: 800px;
+            }
+            .cert-card {
+                padding: 1.5rem;
+            }
+            .cert-card h3 {
+                font-size: 1.2rem;
+            }
+            .cert-card p {
+                font-size: 0.95rem;
+            }
+            .contact {
+                padding: 2rem 8%;
+            }
+            .contact-content {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* 小屏手机额外适配（375px以下） */
+        @media (max-width: 375px) {
+            .nav-btn {
+                font-size: 0.9rem;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .exp-scroll-container {
+                max-height: 180px;
+            }
+            .project-scroll-container {
+                max-height: 200px;
+            }
+        }
+    </style>
+    <!-- 引入字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-links">
+            <a href="#home" class="nav-btn">首页</a>
+            <a href="#education" class="nav-btn">教育背景</a>
+            <a href="#experience" class="nav-btn">工作经历</a>
+            <a href="#projects" class="nav-btn">项目经历</a>
+            <a href="#certificates" class="nav-btn">证书技能</a>
+            <a href="#contact" class="nav-btn">联系我</a>
+        </div>
+    </nav>
+
+    <!-- 首屏区域 -->
+    <section id="home" class="hero">
+        <div class="hero-photo">
+            <div class="photo-container" id="photo-click-area">
+                <img id="profile-photo" src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/449d33220ba44c5b9250e65707c9a0b6.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=202604061857342787163F89C3CBF738DA&rrcfp=8a172a1a&x-expires=1776077855&x-signature=ohK3X9lmpD%2BtnPIfKsrzfQwB2KU%3D" alt="孙莹 职业照">
+            </div>
+            <div class="job-intention" contenteditable="true">意向岗位：投资者关系管理</div>
+            <input type="file" id="photo-input" accept="image/*">
+        </div>
+        <div class="hero-text">
+            <h1 contenteditable="true">孙莹<span contenteditable="true">5年资本市场全流程实战专家</span></h1>
+            <p contenteditable="true">深度参与多家企业IPO上市全流程，聚焦新能源、新材料等先进制造产业，精准把控资本市场叙事逻辑与监管合规边界、具备专业的企业价值提炼与输出能力、出色的跨方协同能力与需求洞察力。</p>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section id="education">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">教育背景</h2>
+            <p class="section-subtitle" contenteditable="true">扎实的金融学术背景，为资本市场实务奠定核心基础</p>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-item">
+                <h3 contenteditable="true">辽宁大学 经济学院</h3>
+                <p contenteditable="true">金融学学士 | 2014.09 - 2018.06<br>GPA 91.67/100</p>
+            </div>
+            <div class="edu-item">
+                <h3 contenteditable="true">武汉大学 经济与管理学院</h3>
+                <p contenteditable="true">金融学硕士（保研） | 2018.09 - 2020.06<br>GPA 3.51/4.00</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">工作经历</h2>
+            <p class="section-subtitle" contenteditable="true">聚焦资本市场IPO全流程，深耕高端制造产业赛道</p>
+        </div>
+        <div class="exp-card">
+            <div class="exp-header">
+                <h3 contenteditable="true">国投证券股份有限公司 | 投资银行部 | 业务经理</h3>
+                <p contenteditable="true">2020.07 - 2025.08 | 上海</p>
+            </div>
+            <div class="exp-content">
+                <div class="main-projects" contenteditable="true">主要项目：鼎龙科技IPO项目（化工行业）、创正电气北交所项目、倍轻松IPO项目（便携按摩器行业）、瑞阳制药新三板项目、中信博IPO项目（光伏行业）</div>
+                <div class="exp-scroll-container">
+                    <ul>
+                        <li contenteditable="true">拥有5年资本市场股权融资与IPO全流程经验。</li>
+                        <li contenteditable="true">深度参与多家企业IPO从尽调、申报、监管反馈到路演发行的全周期工作，包括行业研究、业务价值挖掘、信息披露等，精准把握投资人关注逻辑与监管合规要求，能够将复杂产业逻辑转化为清晰的资本市场语言，增强投资者对公司长期价值的认知；</li>
+                        <li contenteditable="true">擅长企业核心竞争优势与投资亮点挖掘，具备“企业价值提炼-信息传递-合规风险把控”三位一体能力，强化企业核心竞争力与未来价值预期的对外表达；</li>
+                        <li contenteditable="true">多次参与监管反馈回复、上市委问询、董监高访谈及客户走访，能在高压情境下保持沟通推进能力。熟悉监管问询逻辑，在安全环保、业绩成长性、盈利持续性、募投合理性等核心议题上形成“合规与价值兼顾”的分析与答复体系；</li>
+                        <li contenteditable="true">具备跨中介 / 跨部门协调能力及客户需求深度洞察能力，可快速适配企业投资者关系管理场景，助力企业强化资本市场形象、提升投资者信任度与价值认同，把工作从“信息传递”升级为“价值共创”。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目经历 -->
+    <section id="projects">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">项目经历</h2>
+            <p class="section-subtitle" contenteditable="true">覆盖多赛道IPO项目，全流程把控核心环节</p>
+        </div>
+        <div class="projects-container">
+            <!-- 鼎龙科技项目 -->
+            <div class="project-card">
+                <div class="project-title-container">
+                    <h3 contenteditable="true">鼎龙科技主板IPO项目</h3>
+                    <p class="project-meta" contenteditable="true">中国，杭州 | 项目组核心成员 | 2020年11月-2023年12月</p>
+                </div>
+                <div class="project-scroll-container">
+                    <ul>
+                        <li contenteditable="true">全流程参与业务、法律、财务条线工作，主要负责行业研究与主板定位</li>
+                        <li contenteditable="true">申报阶段：围绕精细化工行业及下游染发剂、特种工程材料领域研究，多次与企业技术负责人、董秘深度沟通，拆解产业链竞争格局与公司业务壁垒，撰写招股书业务章节，为企业上市募资提供坚实逻辑支撑；负责公司业务条线的核查工作，累计与企业各部门（生产、安环、人力、财务、董办等）开展数百次专项沟通，逐一对接梳理生产经营资质、商标专利、研发项目等核心资料; 针对募投项目可行性论证，协调企业财务、安环部人员及可研机构等多方反复沟通，细化产能规划、测算数据等，确保备案、环评、可研文件等逻辑一致；通过对客户供应商进行实地走访及视频走访，核查业务往来的真实性及关联关系；对董监高、直接股东及间接股东进行访谈，核查股东适格性等；完成董监高、核心技术人员及关联法人的流水交叉验证，明确排除体外资金循环、股权代持与虚增收入等风险点；通过访谈、流水往来及网络检索，对关联交易、同业竞争、关联资金拆借等方面进行核查，确保信披真实准确及完整；</li>
+                        <li contenteditable="true">反馈阶段：负责监管反馈与上市委问询回复沟通，针对行业成长性、环保合规、募投产能合理性等20余个核心问题，主动与企业生产、财务部等对接获取一手数据，联合中介机构讨论回复口径，累计修改回复文稿上百版，确保表述精准且符合监管逻辑；</li>
+                        <li contenteditable="true">发行阶段：主导路演材料逻辑搭建与亮点提炼，深度参与路演文稿及PPT打磨，聚焦企业业务立意与投资亮点进行价值升华，构建“产业趋势 × 公司竞争力”的投资者认知，提升资本市场对企业价值的可视化程度，提高企业上市发行阶段的投资者沟通效率。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 创正电气项目 -->
+            <div class="project-card">
+                <div class="project-title-container">
+                    <h3 contenteditable="true">创正电气北交所IPO项目</h3>
+                    <p class="project-meta" contenteditable="true">中国，嘉兴 | 项目组核心成员 | 2022年7月-2025年6月</p>
+                </div>
+                <div class="project-scroll-container">
+                    <ul>
+                        <li contenteditable="true">全流程参与业务、法律、财务三条线工作，涵盖公司历史沿革合规性、股权代持、关联交易等关键事项</li>
+                        <li contenteditable="true">针对股权代持、实物出资等核心合规问题，牵头与企业创始人、代持方及被代持方开展十余次深度沟通，引导其完整回忆代持形成背景、资金流转路径，通过“梳理资金流水 + 访谈关键证人”方式还原事实，形成清晰的核查报告；同步与律所沟通法律意见表述口径，确保回复既符合监管要求，又能让资本市场清晰理解问题化解过程，成功为项目申报北交所扫清关键障碍，此过程中建立的沟通信任多次获企业管理层肯定。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 倍轻松项目 -->
+            <div class="project-card">
+                <div class="project-title-container">
+                    <h3 contenteditable="true">倍轻松科创板IPO项目</h3>
+                    <p class="project-meta" contenteditable="true">中国，深圳 | 项目组核心成员 | 2019年10月-2021年7月</p>
+                </div>
+                <div class="project-scroll-container">
+                    <ul>
+                        <li contenteditable="true">负责招股书行业分析章节撰写，聚焦便携按摩器行业趋势研究，深度拆解“健康消费升级 + 便携智能设备普及”双驱动逻辑，结合消费者行为特征（如办公人群肩颈眼护理需求、差旅场景便携使用偏好等），论证行业百亿级市场空间；同时，挖掘“精密驱动技术 + 智能交互升级 + 健康传感应用”的技术迭代趋势，明确产品智能化提升带来的增长机会，为企业提供扎实行业支撑；</li>
+                        <li contenteditable="true">从技术应用、工业设计方案、APP 互联功能、便携形态专利等角度提炼企业产品核心优势，多维度凸显企业先进性特征。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 项目承揽 -->
+            <div class="project-card">
+                <div class="project-title-container">
+                    <h3 contenteditable="true">项目承揽</h3>
+                    <p class="project-meta" contenteditable="true">无 | 主导 | 无具体时间</p>
+                </div>
+                <div class="project-scroll-container">
+                    <ul>
+                        <li contenteditable="true">主导沃特泰科（环保科技）等企业前期承揽尽调与整改方案设计，精准定位申报核心痛点并提供可落地解决方案：梳理出股东出资瑕疵、股改程序不规范、生产经营资质缺失、董监高流水异常等关键问题，牵头制定“清偿关联借款 + 追溯审计评估 + 收购资质公司 + 流水交叉验证”的整改路径，为项目后续申报扫清前期障碍。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 证书技能 -->
+    <section id="certificates">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">证书技能</h2>
+            <p class="section-subtitle" contenteditable="true">专业资质+核心技能，构筑资本市场核心竞争力</p>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <h3 contenteditable="true">CPA 注册会计师</h3>
+                <p contenteditable="true">高分通过，具备全面财务审计能力</p>
+            </div>
+            <div class="cert-card">
+                <h3 contenteditable="true">CFA 二级</h3>
+                <p contenteditable="true">系统掌握投资分析与估值体系</p>
+            </div>
+            <div class="cert-card">
+                <h3 contenteditable="true">证券从业资格</h3>
+                <p contenteditable="true">合规执业必备资质</p>
+            </div>
+            <div class="cert-card">
+                <h3 contenteditable="true">英语能力</h3>
+                <p contenteditable="true">CET-6 615分，专业英文资料读写无障碍</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <h2 class="section-title" contenteditable="true">联系我</h2>
+            <p class="section-subtitle" contenteditable="true">contact：期待与您沟通交流</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-item" contenteditable="true">📞 15927408496</div>
+            <div class="contact-item" contenteditable="true">📩 <a href="mailto:vicsunshine@163.com">vicsunshine@163.com</a></div>
+        </div>
+    </section>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 照片上传功能
+        const photoClickArea = document.getElementById('photo-click-area');
+        const photoInput = document.getElementById('photo-input');
+        const profilePhoto = document.getElementById('profile-photo');
+        
+        photoClickArea.addEventListener('click', function() {
+            photoInput.click();
+        });
+        
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    profilePhoto.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 为可编辑元素添加提示
+        document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+            el.title = "点击可编辑此内容";
+        });
+    </script>
+</body>
+</html># resume
 personal cv
