@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>孙莹 | The Executive Architect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#fe8983",
+                        "on-secondary": "#f7f9ff",
+                        "on-primary": "#f0f9ff",
+                        "primary-dim": "#48545b",
+                        "secondary-dim": "#445567",
+                        "surface-container-highest": "#d9e4ea",
+                        "outline-variant": "#a9b4b9",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary-fixed": "#354147",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-on-surface": "#9a9d9f",
+                        "on-tertiary-container": "#414f62",
+                        "surface-container-low": "#f0f4f7",
+                        "surface-dim": "#cfdce3",
+                        "on-secondary-fixed-variant": "#4c5d70",
+                        "on-error": "#fff7f6",
+                        "primary-fixed": "#d7e4ec",
+                        "inverse-primary": "#e6f3fb",
+                        "tertiary-fixed": "#cfdef5",
+                        "on-secondary-fixed": "#304153",
+                        "on-primary-container": "#47545a",
+                        "background": "#f7f9fb",
+                        "on-surface-variant": "#566166",
+                        "tertiary-container": "#cfdef5",
+                        "surface-container-high": "#e1e9ee",
+                        "outline": "#717c82",
+                        "surface": "#f7f9fb",
+                        "error-dim": "#4e0309",
+                        "surface-container": "#e8eff3",
+                        "secondary-container": "#d2e4fb",
+                        "error": "#9f403d",
+                        "on-surface": "#2a3439",
+                        "surface-tint": "#546067",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#506174",
+                        "primary": "#546067",
+                        "on-background": "#2a3439",
+                        "surface-variant": "#d9e4ea",
+                        "secondary-fixed": "#d2e4fb",
+                        "secondary-fixed-dim": "#c4d6ed",
+                        "primary-fixed-dim": "#c9d6de",
+                        "on-secondary-container": "#425366",
+                        "tertiary": "#526073",
+                        "on-tertiary": "#f7f9ff",
+                        "on-tertiary-fixed": "#2e3d4e",
+                        "tertiary-dim": "#465467",
+                        "tertiary-fixed-dim": "#c1d0e6",
+                        "on-primary-fixed-variant": "#515d64",
+                        "on-tertiary-fixed-variant": "#4a596c",
+                        "primary-container": "#d7e4ec",
+                        "on-error-container": "#752121"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Newsreader"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-divider {
+            height: 1px;
+            background: linear-gradient(to right, #a9b4b9 0%, transparent 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f0f4f7;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #546067;
+            border-radius: 10px;
+        }
+        /* Base font scale up for readability */
+        html {
+            font-size: 18px;
+        }
+        @media (min-width: 1024px) {
+            html {
+                font-size: 19px;
+            }
+        }
+        /* Scrollable content areas */
+        .content-scroll-area {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        .content-scroll-area::-webkit-scrollbar {
+            width: 3px;
+        }
+        .content-scroll-area::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+    
+        /* Custom Cursor Styles */
+        body {
+            cursor: none;
+        }
+        a, button, [role="button"] {
+            cursor: none;
+        }
+        #custom-cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(84, 96, 103, 0.6);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(84, 96, 103, 0.4);
+            background-color: rgba(84, 96, 103, 0.1);
+        }
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(84, 96, 103, 0.2);
+            border-color: rgba(84, 96, 103, 1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed">
+<nav class="fixed top-0 w-full z-50 bg-[#f7f9fb]/90 dark:bg-[#2a3439]/90 backdrop-blur-xl border-b border-surface-variant/30">
+<div class="flex justify-between items-center px-8 py-5 max-w-[1600px] mx-auto">
+<div class="text-xl font-bold tracking-tighter text-[#2a3439] dark:text-[#f7f9fb] font-headline uppercase"><br/></div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-[#566166] dark:text-[#a9b4b9] font-bold font-headline text-[11px] tracking-widest uppercase hover:text-[#2a3439] dark:hover:text-[#ffffff] transition-colors duration-300" href="#contact-section">联系方式</a>
+<a class="text-[#566166] dark:text-[#a9b4b9] font-bold font-headline text-[11px] tracking-widest uppercase hover:text-[#2a3439] dark:hover:text-[#ffffff] transition-colors duration-300" href="#education-section">学术背景</a>
+<a class="text-[#566166] dark:text-[#a9b4b9] font-bold font-headline text-[11px] tracking-widest uppercase hover:text-[#2a3439] dark:hover:text-[#ffffff] transition-colors duration-300" href="#skills-section">专业资质</a>
+<a class="text-[#566166] dark:text-[#a9b4b9] font-bold font-headline text-[11px] tracking-widest uppercase hover:text-[#2a3439] dark:hover:text-[#ffffff] transition-colors duration-300" href="#work-section">工作经历</a>
+<a class="text-[#566166] dark:text-[#a9b4b9] font-bold font-headline text-[11px] tracking-widest uppercase hover:text-[#2a3439] dark:hover:text-[#ffffff] transition-colors duration-300" href="#projects-section">项目经验</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-headline font-bold text-[10px] uppercase tracking-wider scale-95 active:opacity-80 transition-all" onclick="window.print()">
+                下载简历
+            </button>
+</div>
+</nav>
+<main class="pt-24 min-h-screen max-w-[1600px] mx-auto px-8 pb-20">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Left Sidebar -->
+<aside class="lg:col-span-4 space-y-12">
+<div class="sticky top-32 space-y-12">
+<!-- Profile Header -->
+<div class="flex flex-col items-start gap-8">
+<img alt="孙莹" class="w-48 h-48 rounded-full object-cover border-4 border-surface-container shadow-xl aspect-square" src="https://lh3.googleusercontent.com/aida/ADBb0uh3eucIrbx_wQRAYeg7evZkmzNhlHtbCYgc27TGP-BxHuYcmE8vFBe26rMoRra6SI-mFtynlyPvcoPvCVwfbZ6ceAC5sVhujii_TFdMV98xeJTUqQNDOwJg1jA4lO_jFL9R8lYgIZVY4-XhM0jE-zYVRqBOUTGUlAOnfgz7UOElPiUVkkV_-xYb6YbxDqW2NCgRw8fJyxrM2qzWzdr3EPvSN20Uu-x_R4nK6WmDLkAU-a_dAHccl708q-dPoSpw3dQ1-Gf0Ogpqdpw"/>
+<div>
+<span class="inline-block px-3 py-0.5 bg-surface-container-high text-on-surface-variant font-headline font-bold tracking-[0.2em] uppercase mb-4 rounded-sm text-[14px]">意向职位：投资经理</span>
+<h1 class="text-6xl font-headline font-extrabold tracking-tighter text-on-surface leading-none mb-2">孙莹</h1>
+<h2 class="text-xl font-body italic text-primary-dim">投资银行部 | 业务经理</h2>
+</div>
+</div>
+<!-- Personal Info -->
+<div class="space-y-4 scroll-mt-32" id="contact-section">
+<h3 class="font-headline font-bold text-[11px] uppercase tracking-[0.2em] text-primary">联系方式</h3>
+<div class="sidebar-divider mb-4"></div>
+<div class="flex flex-col gap-3 font-headline text-on-surface-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="mail">mail</span>
+<span class="text-sm font-semibold">vicsunshine@163.com</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="phone">phone</span>
+<span class="text-sm font-semibold">(86) 15927408496</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="chat">chat</span>
+<span class="text-sm font-semibold">WeChat: 15927408496</span>
+</div>
+</div>
+</div>
+<!-- Academic Foundation -->
+<div class="space-y-6 scroll-mt-32" id="education-section">
+<h3 class="font-headline font-bold text-[11px] uppercase tracking-[0.2em] text-primary">学术背景</h3>
+<div class="sidebar-divider mb-4"></div>
+<div class="space-y-8">
+<div class="relative pl-6 border-l-2 border-outline-variant/30">
+<div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-primary"></div>
+<h4 class="text-lg font-body font-bold text-on-surface">武汉大学</h4>
+<p class="text-primary font-headline font-bold text-[10px] mb-2 uppercase tracking-wide">金融学硕士 | 2018.09 — 2020.06</p>
+<p class="text-sm text-on-surface-variant italic font-body">经济与管理学院，GPA 3.51/4.00，保研。</p>
+</div>
+<div class="relative pl-6 border-l-2 border-outline-variant/30">
+<div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-outline-variant"></div>
+<h4 class="text-lg font-body font-bold text-on-surface">辽宁大学</h4>
+<p class="text-primary font-headline font-bold text-[10px] mb-2 uppercase tracking-wide">金融学学士 | 2014.09 — 2018.06</p>
+<p class="text-sm text-on-surface-variant italic font-body">经济学院，GPA 91.67/100.00。</p>
+</div>
+</div>
+</div>
+<!-- Expertise & Honors -->
+<div class="space-y-8 scroll-mt-32" id="skills-section">
+<h3 class="font-headline font-bold text-[11px] uppercase tracking-[0.2em] text-primary">专业资质与核心能力</h3>
+<div class="sidebar-divider mb-4"></div>
+<div>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-headline font-bold text-[10px] uppercase rounded-sm">CPA 注册会计师</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-headline font-bold text-[10px] uppercase rounded-sm">CFA Level II</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-headline font-bold text-[10px] uppercase rounded-sm">CET-6 615分</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end border-b border-surface-container-high pb-2">
+<span class="font-body italic text-base">财务建模与估值分析</span>
+<span class="font-headline font-bold text-[10px] text-primary-dim uppercase">Expert</span>
+</div>
+<div class="flex justify-between items-end border-b border-surface-container-high pb-2">
+<span class="font-body italic text-base">IPO 执行与监管合规</span>
+<span class="font-headline font-bold text-[10px] text-primary-dim uppercase">Advanced</span>
+</div>
+<div class="flex justify-between items-end border-b border-surface-container-high pb-2">
+<span class="font-body italic text-base">Excel/PPT 商务汇报</span>
+<span class="font-headline font-bold text-[10px] text-primary-dim uppercase">Proficient</span>
+</div>
+</div>
+<div class="pt-4">
+<p class="font-body text-on-surface-variant text-base leading-relaxed italic">
+                                追求卓越、注重细节，具备极强的高压工作适应力与跨团队协作能力。致力于连接创新企业成长与资本市场需求，打造稳健的金融架构。
+                            </p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Main Content -->
+<div class="lg:col-span-8 space-y-20">
+<!-- Work Experience Section -->
+<section class="space-y-12 scroll-mt-32" id="work-section">
+<div class="flex items-baseline justify-between gap-4 border-b-2 border-on-surface pb-6">
+<h2 class="text-5xl font-headline font-extrabold tracking-tight text-on-surface">工作经历.</h2>
+<p class="font-headline font-bold text-xs text-primary-dim tracking-widest uppercase">Professional Path</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-4">
+<h3 class="text-2xl font-body font-bold text-primary mb-1">国投证券股份有限公司</h3>
+<p class="font-headline font-bold text-[10px] text-on-surface-variant uppercase tracking-widest mb-4">SDIC Securities</p>
+<div class="space-y-1 font-headline text-xs font-bold text-primary-dim">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span>2020.07 — 2025.08</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="work">work</span>
+<span>投资银行部 | 业务经理</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-8">
+<div class="space-y-8">
+<div class="content-scroll-area custom-scrollbar">
+<h4 class="text-xl font-body font-bold mb-4 text-on-surface border-l-4 border-primary-fixed-dim pl-4">核心职责与专业积累</h4>
+<p class="text-base text-on-surface-variant leading-relaxed mb-6 italic">拥有5年先进制造与资本市场深度融合的项目实操经验，长期聚焦新材料、光伏等高端制造赛道，具备从产业研判—尽职调查—投资可行性论证—风险评估的全链条专业能力，可独立完成项目尽调、标的价值分析及核心风险识别等工作，结合行业周期、竞争格局及盈利兑现能力，对企业成长性与投资安全边际进行系统评估，为投资决策的制定与资源配置提供研究支撑与参考，高度契合投资岗位在项目挖掘、分析筛选、推进落地等方面的核心需求。</p>
+<div class="mb-8">
+<span class="font-headline font-extrabold text-on-surface block mb-2 text-sm uppercase tracking-wide">主要项目</span>
+<p class="text-on-surface-variant text-sm leading-relaxed italic">鼎龙科技IPO项目（化工行业），倍轻松IPO项目（智能制造行业），中信博IPO项目（光伏行业），创正电气北交所项目、瑞阳制药新三板项目</p>
+</div>
+<ul class="space-y-6">
+<li class="group">
+<div class="flex gap-4 items-start">
+<span class="w-2 h-2 bg-primary mt-2 rounded-full flex-shrink-0 group-hover:scale-125 transition-transform"></span>
+<div>
+<span class="font-headline font-extrabold text-on-surface block mb-1 text-sm uppercase tracking-wide">项目研判与产业研究</span>
+<p class="text-on-surface-variant text-sm leading-relaxed">深度研究新能源、精细化工等先进制造领域的产业链格局，分析市场空间、技术迭代方向、竞争格局演变、成本曲线变化，挖掘企业核心价值与投资亮点，形成系统化的产业逻辑判断与项目价值分析能力；</p>
+</div>
+</div>
+</li>
+<li class="group">
+<div class="flex gap-4 items-start">
+<span class="w-2 h-2 bg-primary mt-2 rounded-full flex-shrink-0 group-hover:scale-125 transition-transform"></span>
+<div>
+<span class="font-headline font-extrabold text-on-surface block mb-1 text-sm uppercase tracking-wide">尽职调查与风险控制</span>
+<p class="text-on-surface-variant text-sm leading-relaxed">深度参与多家企业 IPO 全流程尽调工作，覆盖业务、法律、财务三大核心条线，涵盖生产经营资质、历史沿革、股权代持、同业竞争、关联交易等关键风险点，具备极强的风险识别分析能力；</p>
+</div>
+</div>
+</li>
+<li class="group">
+<div class="flex gap-4 items-start">
+<span class="w-2 h-2 bg-primary mt-2 rounded-full flex-shrink-0 group-hover:scale-125 transition-transform"></span>
+<div>
+<span class="font-headline font-extrabold text-on-surface block mb-1 text-sm uppercase tracking-wide">项目分析与材料撰写</span>
+<p class="text-on-surface-variant text-sm leading-relaxed">独立完成招股书业务分析、路演文件、募投章节等核心材料撰写，擅长将复杂产业逻辑与企业经营数据转化为清晰的资本市场语言，具备优秀的材料撰写功底、逻辑思维能力与底层商业思考能力。</p>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section class="space-y-12 scroll-mt-32" id="projects-section">
+<div class="flex items-baseline justify-between gap-4 border-b-2 border-on-surface pb-6">
+<h2 class="text-5xl font-headline font-extrabold tracking-tight text-on-surface">项目经验.</h2>
+<p class="font-headline font-bold text-xs text-primary-dim tracking-widest uppercase">Project Portfolio</p>
+</div>
+<div class="space-y-10">
+<!-- Project 1: 鼎龙科技 -->
+<div class="bg-surface-container-low p-8 border-l-4 border-primary">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div class="space-y-1">
+<h3 class="text-2xl font-body font-bold text-on-surface">鼎龙科技主板IPO项目</h3>
+<p class="text-sm font-headline font-bold text-primary tracking-widest uppercase">中国，杭州</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-bold text-xs text-on-surface-variant uppercase">项目组核心成员</p>
+<p class="text-xs font-headline text-primary-dim">2020年11月-2023年12月</p>
+</div>
+</div>
+<div class="space-y-4 content-scroll-area custom-scrollbar">
+<p class="text-sm text-on-surface font-semibold">· 全流程参与业务、法律、财务条线工作，重点承担业务研究、尽调核查、材料撰写等</p>
+<div class="space-y-4">
+<div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+<span class="font-bold text-on-surface">· 申报及审核阶段：</span>
+                                            ①产业研究与价值分析：开展精细化工行业深度研究，覆盖染发剂、特种工程材料等下游细分领域，分析市场空间、行业壁垒与竞争优势等，为企业上市募资与定价提供核心逻辑支撑；②尽调核查与风险把控：独立完成公司固定资产、无形资产、研发投入、安全环保、生产经营资质等业务维度核查，以及重大诉讼、行政处罚、同业竞争、董监高兼职投资等法律条线核查；完成董监高、核心技术人员及关联法人流水交叉验证，识别并防范体外资金循环、股权代持等潜在风险事项；实地 / 视频走访客户供应商，访谈股东及核心人员，确保项目信息真实、准确，风险可控； ③募投产能规划和效益测算：评估募投项目的必要性与可行性，以及产能扩张对企业市占率及行业供需格局的影响，测算投产后对公司盈利能力的提升空间；④材料撰写与价值表达：负责招股书业务章节撰写及反馈问题及上市委问询回复工作，搭建清晰的业务价值表达及反馈回复体系；
+                                        </p>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+<span class="font-bold text-on-surface">· 发行阶段：</span>
+                                            主导路演材料撰写，提炼企业核心投资亮点，优化投资逻辑表达；构建“产业趋势 × 公司竞争力 × 财务兑现能力”的投资逻辑框架，将复杂产业技术逻辑转化为可量化、可验证的价值判断依据，支撑估值判断与投资决策。
+                                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: 创正电气 -->
+<div class="bg-surface-container-low p-8 border-l-4 border-primary-dim">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div class="space-y-1">
+<h3 class="text-2xl font-body font-bold text-on-surface">创正电气北交所项目</h3>
+<p class="text-sm font-headline font-bold text-primary tracking-widest uppercase">中国，嘉兴</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-bold text-xs text-on-surface-variant uppercase">项目组核心成员</p>
+<p class="text-xs font-headline text-primary-dim">2022年7月-2025年6月</p>
+</div>
+</div>
+<div class="content-scroll-area custom-scrollbar">
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                                    · 全程参与企业新三板及北交所申报流程，重点负责历史沿革与股权结构核查，系统拆解多主体股权代持及实物出资瑕疵事项的形成背景与演变路径，梳理整改逻辑并进行合规论证，确保整改方式合法有效、相关主体不存在潜在纠纷，公司股权结构清晰，控制权稳定；同时开展业务层面分析，评估客户结构稳定性、收入波动特征及回款能力，结合可比公司对标与行业定位判断，综合评估企业经营持续性与成长质量。
+                                </p>
+</div>
+</div>
+<!-- Project 3: 倍轻松 -->
+<div class="bg-surface-container-low p-8 border-l-4 border-primary">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div class="space-y-1">
+<h3 class="text-2xl font-body font-bold text-on-surface">倍轻松科创板IPO项目</h3>
+<p class="text-sm font-headline font-bold text-primary tracking-widest uppercase">中国，深圳</p>
+</div>
+<div class="text-right">
+<p class="font-headline font-bold text-xs text-on-surface-variant uppercase">项目组核心成员</p>
+<p class="text-xs font-headline text-primary-dim">2019年10月-2021年7月</p>
+</div>
+</div>
+<ul class="space-y-4 content-scroll-area custom-scrollbar">
+<li class="text-sm text-on-surface-variant leading-relaxed">
+                                    · 负责招股书行业分析章节撰写，系统研究便携按摩器行业发展趋势，拆解“健康消费升级 + 便携智能设备普及”双驱动逻辑，结合消费者行为特征（如办公人群肩颈眼护理需求、差旅场景便携使用偏好等），论证行业市场规模与增长空间；同时，挖掘“精密驱动技术 + 智能交互升级 + 健康传感应用”的技术迭代趋势，评估产品智能化提升带来的增长机会，为价值判断提供行业依据；
+                                </li>
+<li class="text-sm text-on-surface-variant leading-relaxed">
+                                    · 从技术应用、工业设计方案、APP 互联功能、便携形态专利等角度提炼企业产品核心优势，多维度凸显企业先进性特征。
+                                </li>
+</ul>
+</div>
+<!-- Section: 项目承揽 -->
+<div class="pt-8 space-y-6">
+<h3 class="text-3xl font-headline font-extrabold text-on-surface tracking-tight border-l-4 border-on-surface pl-4">项目承揽</h3>
+<div class="bg-primary text-on-primary p-8 shadow-lg">
+<p class="text-sm leading-relaxed">
+                                    · 主导环保科技企业前期承揽尽调与整改方案设计，梳理标的公司核心业务模式、行业竞争格局、盈利能力与产能扩张规划，形成初步价值研判，识别标的公司在股东出资合规性、股改程序规范性、生产经营资质完整性等方面的关键风险点，评估其对公司治理结构及业绩的影响程度，对应提供整改与优化建议，提高企业生产经营合规性。
+                                </p>
+<div class="flex flex-wrap gap-4 mt-6">
+<span class="px-3 py-1 bg-white/10 text-[10px] font-headline font-bold uppercase rounded-sm">环保科技</span>
+<span class="px-3 py-1 bg-white/10 text-[10px] font-headline font-bold uppercase rounded-sm">价值研判</span>
+<span class="px-3 py-1 bg-white/10 text-[10px] font-headline font-bold uppercase rounded-sm">合规优化</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Call to Action -->
+<section class="bg-on-surface text-surface p-16 text-center space-y-10">
+<h2 class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter leading-none">
+                        共筑未来.
+                    </h2>
+<p class="font-body italic text-xl opacity-80 max-w-2xl mx-auto">期待与您交流沟通</p>
+<div class="flex flex-col md:flex-row justify-center gap-8 items-center pt-8">
+<a class="text-xl font-body italic hover:text-primary-fixed-dim transition-colors" href="mailto:vicsunshine@163.com">vicsunshine@163.com</a>
+<div class="hidden md:block w-px h-6 bg-surface/30"></div>
+<a class="bg-surface text-on-surface px-12 py-4 rounded-full font-headline font-bold text-lg hover:bg-primary-fixed transition-all hover:scale-105 inline-block" href="mailto:vicsunshine@163.com">即刻联系</a>
+</div>
+</section>
+</div>
+</div>
+</main>
+<div id="custom-cursor"></div><script>
+        const cursor = document.getElementById('custom-cursor');
+        
+        // Mouse movement tracking
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Hover effect on interactive elements
+        const interactives = document.querySelectorAll('a, button');
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+        });
+
+        // Smooth scroll and cursor refocusing
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // Refocus cursor onto the section title after scroll
+                    setTimeout(() => {
+                        const title = targetElement.querySelector('h2, h3');
+                        if (title) {
+                            const rect = title.getBoundingClientRect();
+                            cursor.style.left = (rect.left + 20) + 'px';
+                            cursor.style.top = (rect.top + (rect.height / 2)) + 'px';
+                        }
+                    }, 800); // Delay to allow scroll to complete
+                }
+            });
+        });
+    </script></body></html>
